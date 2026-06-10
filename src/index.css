@@ -939,6 +939,7 @@ h1 em, .final-hero h1 em { display: block; color: #e11d74; font-weight: 700; }
   color: white;
 }
 .crossing-scene,
+.entering-scene,
 .portal-scene,
 .hold-final-scene {
   position: absolute;
@@ -950,6 +951,73 @@ h1 em, .final-hero h1 em { display: block; color: #e11d74; font-weight: 700; }
     radial-gradient(circle at 88% 46%, rgba(236,72,153,.2), transparent 19%),
     radial-gradient(circle at 18% 18%, rgba(126,34,206,.1), transparent 24%),
     linear-gradient(160deg, #09070d, #160d1c 58%, #100914);
+}
+.entering-scene {
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(circle at center, rgba(236,72,153,.22), transparent 32%),
+    linear-gradient(160deg, #09070d, #160d1c 58%, #100914);
+}
+.entering-message {
+  position: absolute;
+  top: 12%;
+  z-index: 7;
+  margin: 0;
+  color: #fbcfe8;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(24px, 4vw, 39px);
+  font-style: italic;
+}
+.entrance-door {
+  position: absolute;
+  z-index: 3;
+  top: 27%;
+  width: 190px;
+  height: 300px;
+  display: grid;
+  place-items: center;
+  overflow: visible;
+  border: 5px solid rgba(255,255,255,.68);
+  border-radius: 95px 95px 8px 8px;
+  color: white;
+  background: radial-gradient(circle, rgba(255,255,255,.65), rgba(236,72,153,.38) 45%, rgba(126,34,206,.36));
+  box-shadow: 0 0 90px rgba(236,72,153,.5), inset 0 0 45px rgba(255,255,255,.38);
+  perspective: 650px;
+}
+.entrance-door > svg { z-index: 1; filter: drop-shadow(0 0 18px white); }
+.entrance-door-panel,
+.portal-door-panel {
+  position: absolute;
+  z-index: 4;
+  inset: 7px;
+  border: 1px solid rgba(255,255,255,.55);
+  border-radius: 82px 82px 4px 4px;
+  background: linear-gradient(145deg, rgba(244,114,182,.88), rgba(126,34,206,.78));
+  box-shadow: inset 0 0 35px rgba(255,255,255,.3);
+  transform-origin: left center;
+}
+.entering-couple {
+  position: absolute;
+  z-index: 8;
+  top: 45%;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  color: #f472b6;
+}
+.entering-couple > div { position: relative; width: 70px; height: 78px; }
+.entering-couple .pixel-girl-wrap,.entering-couple .pixel-boy-wrap{position:absolute;inset:0}
+.entrance-flash {
+  position: absolute;
+  z-index: 9;
+  top: 43%;
+  width: 170px;
+  height: 170px;
+  border-radius: 50%;
+  background: white;
+  filter: blur(25px);
+  pointer-events: none;
 }
 .night-stars {
   position:absolute;inset:0;opacity:.48;
@@ -979,8 +1047,9 @@ h1 em, .final-hero h1 em { display: block; color: #e11d74; font-weight: 700; }
 
 .portal-scene{display:grid;place-items:center;background:radial-gradient(circle at center,rgba(236,72,153,.25),transparent 36%),#0c0811}
 .portal-bloom{position:absolute;width:420px;height:420px;border-radius:50%;background:rgba(236,72,153,.18);filter:blur(55px);animation:doorAura 1.8s infinite ease-in-out}
-.portal-door{position:absolute;width:210px;height:330px;display:grid;place-items:center;border:5px solid rgba(255,255,255,.65);border-radius:105px 105px 8px 8px;color:#fff;background:linear-gradient(155deg,rgba(244,114,182,.45),rgba(126,34,206,.38));box-shadow:0 0 85px rgba(236,72,153,.52),inset 0 0 55px rgba(255,255,255,.35)}
-.portal-door svg{filter:drop-shadow(0 0 18px white)}
+.portal-door{position:absolute;width:210px;height:330px;display:grid;place-items:center;overflow:visible;border:5px solid rgba(255,255,255,.65);border-radius:105px 105px 8px 8px;color:#fff;background:radial-gradient(circle,rgba(255,255,255,.68),rgba(244,114,182,.45) 45%,rgba(126,34,206,.38));box-shadow:0 0 85px rgba(236,72,153,.52),inset 0 0 55px rgba(255,255,255,.35);perspective:650px}
+.portal-door svg{z-index:1;filter:drop-shadow(0 0 18px white)}
+.portal-door-panel{border-radius:92px 92px 4px 4px}
 .portal-couple{position:absolute;z-index:5;top:42%;display:flex;align-items:center;gap:2px;color:#f472b6;filter:drop-shadow(0 8px 8px rgba(0,0,0,.25))}
 .portal-couple>div{width:70px;height:78px;position:relative}.portal-couple .pixel-girl-wrap,.portal-couple .pixel-boy-wrap{position:absolute;inset:0}
 .portal-scene>p{position:absolute;bottom:12%;margin:0;color:#fbcfe8;font-family:'Cormorant Garamond',serif;font-size:clamp(17px,3vw,24px);font-style:italic}
@@ -1007,5 +1076,6 @@ h1 em, .final-hero h1 em { display: block; color: #e11d74; font-weight: 700; }
   .crossing-destination{right:-22px;bottom:12%;transform:scale(.8);transform-origin:bottom right}
   .crossing-karinha{transform:scale(.86);transform-origin:bottom center}
   .portal-door{transform:scale(.82);width:190px;height:300px}.portal-couple{top:43%}.portal-scene>p{bottom:10%;width:86%;text-align:center;font-size:17px}
+  .entrance-door{top:28%;transform:scale(.82)}.entering-couple{top:47%}.entering-message{top:10%;font-size:28px}
   .hold-final-scene{justify-content:flex-start;padding-top:25px}.hold-final-scene .last-step-copy h1{font-size:34px}.couple-outside-door{height:165px;transform:scale(.9);margin-top:-5px;margin-bottom:-5px}
 }

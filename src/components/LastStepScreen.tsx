@@ -5,7 +5,7 @@ import { PixelBoyCharacter } from './PixelBoyCharacter'
 import { PixelGirlCharacter } from './PixelGirlCharacter'
 
 type LastStepScreenProps = { onUnlock: () => void }
-type Scene = 'crossing' | 'portal' | 'hold'
+type Scene = 'crossing' | 'entering' | 'portal' | 'hold'
 
 const memories = [
   'Nosso primeiro oi',
@@ -42,7 +42,7 @@ export function LastStepScreen({ onUnlock }: LastStepScreenProps) {
       delay: 1,
       duration: 5.2,
       ease: [0.42, 0, 0.25, 1],
-      onComplete: () => setScene('portal'),
+      onComplete: () => setScene('entering'),
     })
     return () => controls.stop()
   }, [crossingX, scene])
@@ -128,16 +128,50 @@ export function LastStepScreen({ onUnlock }: LastStepScreenProps) {
           </motion.section>
         )}
 
+        {scene === 'entering' && (
+          <motion.section key="entering" className="entering-scene" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: .65 }}>
+            <div className="night-stars" />
+            <motion.p className="entering-message" initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }}>Finalmente, juntos.</motion.p>
+            <motion.div
+              className="entrance-door"
+              initial={{ scale: .9 }}
+              animate={{ scale: [0.9, 1, 1.04] }}
+              transition={{ duration: 2.5 }}
+            >
+              <motion.div
+                className="entrance-door-panel"
+                initial={{ rotateY: 0 }}
+                animate={{ rotateY: -76 }}
+                transition={{ delay: .65, duration: 1.1, ease: 'easeInOut' }}
+              />
+              <Heart size={34} fill="currentColor" />
+            </motion.div>
+            <motion.div
+              className="entering-couple"
+              initial={{ opacity: 1, y: 75, scale: 1 }}
+              animate={{ opacity: [1, 1, 0], y: [75, 15, -15], scale: [1, .72, .25] }}
+              transition={{ delay: 1.5, duration: 2.2, ease: 'easeInOut' }}
+              onAnimationComplete={() => setScene('portal')}
+            >
+              <div><PixelGirlCharacter compact /></div>
+              <Heart size={15} fill="currentColor" />
+              <div><PixelBoyCharacter compact /></div>
+            </motion.div>
+            <motion.div className="entrance-flash" initial={{ opacity: 0, scale: .4 }} animate={{ opacity: [0, 0, .9, 0], scale: [0.4, .4, 1.4, 2] }} transition={{ delay: 2.7, duration: 1.2 }} />
+          </motion.section>
+        )}
+
         {scene === 'portal' && (
           <motion.section key="portal" className="portal-scene" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: .7 }}>
             <div className="portal-bloom" />
-            <motion.div className="portal-door" initial={{ scale: .35, opacity: 0 }} animate={{ scale: [0.35, 1, 1.1], opacity: 1 }} transition={{ duration: 1.5 }}>
+            <motion.div className="portal-door" initial={{ scale: .35, opacity: 0 }} animate={{ scale: [0.35, 1, 1.05], opacity: 1 }} transition={{ duration: 1.4 }}>
+              <motion.div className="portal-door-panel" initial={{ rotateY: 0 }} animate={{ rotateY: -78 }} transition={{ delay: 1.2, duration: 1.1, ease: 'easeInOut' }} />
               <Heart size={42} fill="currentColor" />
             </motion.div>
-            <motion.div className="portal-couple" initial={{ opacity: 0, scale: .55, y: 0 }} animate={{ opacity: [0, 1, 1], scale: [0.55, .85, 1], y: [0, 25, 105] }} transition={{ delay: 1.1, duration: 2.3, ease: 'easeOut' }} onAnimationComplete={() => setScene('hold')}>
+            <motion.div className="portal-couple" initial={{ opacity: 0, scale: .2, y: -40 }} animate={{ opacity: [0, 1, 1], scale: [0.2, .65, 1], y: [-40, 30, 135] }} transition={{ delay: 2, duration: 2.5, ease: [0.22, 1, 0.36, 1] }} onAnimationComplete={() => setScene('hold')}>
               <div><PixelGirlCharacter compact /></div><Heart size={15} fill="currentColor" /><div><PixelBoyCharacter compact /></div>
             </motion.div>
-            <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.5 }}>Juntos, eles atravessaram para o próximo capítulo…</motion.p>
+            <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 2.4 }}>Juntos, eles atravessaram para o próximo capítulo…</motion.p>
           </motion.section>
         )}
 
